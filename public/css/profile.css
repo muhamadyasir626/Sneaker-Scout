@@ -1,0 +1,509 @@
+@font-face {
+  font-family: 'iran_sans_bold';
+  src: url('../Fonts/iran_sans_bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'iran_sans_light';
+  src: url('../Fonts/iran_sans_light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'iran_sans_medi';
+  src: url('../Fonts/iran_sans_medi.woff') format('woff');
+}
+*{
+  font-family:  'Roboto Condensed';
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all .2s linear;
+}
+
+html{
+  font-size: 60%;
+  scroll-padding-top: 6rem;
+  scroll-behavior: smooth;
+}
+
+th{
+  font-family: "roboto slab";
+  font-size: 1.5rem;
+}
+
+header{
+  position: inline;
+  top: 0;
+  left: 0;
+  gap: 20px;
+  width: 100%;
+  z-index: 1;
+  background: #ffffff;
+  padding: 2rem 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+
+tbody{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+tr{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+
+
+input{
+  width: 25rem;
+  text-transform: none;
+  font-family: "roboto slab";
+  font-size: 1.5rem;
+  border: none;
+}
+
+.input-editable {
+  border: 1px solid #000000; /* Change the color and style as needed */
+}
+
+
+header .logo{
+  font-size: 30px;
+  color: #000;
+  font-weight: 500;
+  text-align: center; /* Center the logo text within its flex item */
+  font-family: "Most Wazted";
+  color: #EB4511;
+  max-width: 100px;
+}
+
+header .navbar {
+  display: flex;
+  justify-content: space-between; /* Menyebar item navbar secara lebih merata */
+  align-items: center;
+  gap:20px;
+}
+
+header .navbar a{
+  font-size: 1.5rem;
+  display: flex;
+  color: #000;
+  margin: 0 0.5rem;
+  padding: 4px 0px;
+  justify-content: space-between;
+  font-family: "roboto slab";
+  color: #afafaf;
+}
+
+header .navbar span{
+  font-family: "roboto slab";
+}
+
+.logo {
+
+  line-height: 1; /* Kurangi line-height untuk mendekatkan teks */
+}
+
+.logo span {
+  display: block;
+  margin-top: -15px; /* Jarak negatif untuk mendekatkan kedua baris */
+  font-size: 30px; /* Ukuran font untuk baris kedua */
+  color: #EB4511; /* Sesuaikan warna */
+  font-family: "most wazted";
+}
+
+
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adjust spacing between icon and text */
+  color: #909090; /* Customize color */
+  text-decoration: none;
+}
+
+header .navbar a:hover{
+  color: orangered;
+}
+
+header .navbar .button:hover{
+  color: rgb(0, 0, 0);
+}
+
+
+#menu-bar{
+  font-size: 2rem;
+  padding: .5rem 1rem;
+  border: .1rem solid #000;
+  color: #000;
+  border-radius: .3rem;
+  cursor: pointer;
+  display: none;
+  margin-left: auto; 
+}
+
+.frame1 {
+  position: relative;
+  height: 70vh; /* Gunakan vh jika tidak ada konteks tinggi yang jelas */
+  width: 100%;
+}
+
+.frame1 .profile {
+  justify-content: center;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+  font-weight: bold;
+}
+
+.frame1 .profile a{
+  font-size: 3rem;
+  font-family: "roboto slab";
+}
+
+.frame1 .profileuser{
+  outline: 1px solid rgb(219, 219, 219);
+  position: relative;
+  top: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px; /* Lebar kotak div */
+  height: 200px; /* Tinggi kotak div */
+  border-radius: 20px;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+.profileuser h2{
+  font-size: 2rem ;
+  text-align: center;
+  padding: 2.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.profileuser h2 {
+  font-size: 2rem;
+  text-align: center;
+  padding: 2.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.profileuser .profileuser2 {
+  height: 100%;
+  width: auto;
+  display: flex;
+}
+
+.user {
+  display: flex;
+  width: 30%;
+  height: 100%;
+  background-color: #8EB1C7;
+  border-top-left-radius: 20px;   /* Atur radius bagian atas kanan */
+  border-bottom-left-radius: 20px; /* Atur radius bagian bawah kanan */
+  align-items: center;
+  text-align: center;
+}
+
+.user h1{
+  font-size: 2.5rem;
+  font-family: "roboto slab";
+}
+
+
+.user img {
+  border-radius: 50%;
+  object-fit: cover;
+  height: 15rem;
+  width: 15rem;
+  margin: 1rem 0;
+  border: 4px solid #ddd;
+}
+
+.user2 {
+  width: 50%;
+  padding: 1rem;
+  min-width: 200px;
+  display:flex;
+}
+
+.button1 {
+  display: flex;
+  position: relative;
+  height: 15%;
+  border-radius: 5px;
+  border:1px solid;
+  align-items: center;
+  margin-top: 41%;
+  margin-left: 38%;
+  padding: 10px;
+  white-space: nowrap; /* Mencegah teks dari wrapping */
+}
+
+#file {
+  display: none;
+}
+
+#uploadbtn {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  padding: 6px;
+  border-radius: 50%;
+  background-color: #c2c2c2;
+  box-shadow: 2px 4px 4px #000;
+  transform: translateX(200%);
+  margin-top: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.user .fa-camera {
+  font-size: 1.9rem;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  display: flex;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+hr{
+  height: 90%;
+}
+
+th, td {
+  padding: 4px;
+  font-size: 1.6rem;
+  text-transform: none;
+  font-family: "roboto slab";
+  width: 40%;
+}
+
+th {
+  text-align: left;
+  font-family: "Roboto Slab";
+}
+
+
+.button1:hover {
+  background-color: #EB4511;
+  color: #ffffff;
+}
+
+.wishlist{
+  position: relative;
+  top: 13%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 50px;
+}
+.wishlist hr{
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.wishlist h1{
+  position: relative;
+  margin-top: 10px;
+  font-family: "roboto slab";
+  cursor: pointer;
+  color: #000;
+}
+/* Media Queries */
+@media (max-width: 73px) {
+  .profileuser, .profileuser2 {
+    flex-direction: column; /* Stacks the flex children vertically */
+  }
+
+  .user, .user2 {
+    width: 100%; /* Each takes full width on smaller screens */
+  }
+
+  .user img {
+    height: 10rem; /* Smaller image on smaller screens */
+    width: 10rem;
+  }
+
+  #uploadbtn {
+    transform: translateX(300%); /* Adjust button position on smaller screens */
+  }
+}
+
+body{
+	line-height: 1.5;
+	font-family: 'Poppins', sans-serif;
+}
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+.container{
+    padding: 10px 0;
+}
+
+.row{
+	display: flex;;
+	flex-wrap: wrap;
+    max-width: 100%;
+    margin-bottom: -75px;
+}
+
+ul{
+	list-style: none;
+}
+
+.blog{
+    margin-bottom: 10%;
+}
+
+.footer{
+	background-color: #3E3E3E;
+    padding: 15px 0;
+    
+}
+.footer-col{
+   width: 33%;
+   margin-top: 20px;
+   padding: 0 110px;
+
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 30px;
+	font-weight: 500;
+	position: relative;
+    
+}
+
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+
+.footer-col .social-links{
+    transform: translateY(-130px);
+    margin-left: 15px;
+    margin-top: 20px; /* Atur jarak vertikal logo sosial media */
+    margin-bottom: 20px;
+}
+
+
+.footer .social-links a {
+    display: inline-block;
+    margin: 0 10px; /* Jarak antar ikon */
+    font-size: 30px; /* Ukuran ikon */
+    color: #fff; /* Warna ikon */
+    transition: color 0.3s ease;
+    
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+.footer-col .sneaker{
+    position: relative;
+    color: #EB4511;
+    font-family: "most wazted";
+    font-size: 5rem;
+    bottom: 20px;
+}
+
+.footer-col .scout{
+    position: relative;
+    color: #EB4511;
+    font-family: "most wazted";
+    font-size: 5rem;
+    left: 10%;
+    bottom: 38%;
+}
+
+.footer-col h3{
+    text-align: right;
+    font-size: 14px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+    
+}
+
+h5{
+    margin-left: 75%;
+    color: #C9C9C9;
+    font-family: "roboto slab";
+    font-size: 1.1rem;
+}
+
+.inc{
+  color: #C9C9C9;
+  font-family: "roboto slab";
+  font-size: 1.1rem;
+  margin-left: 7.5%;
+  margin-right: 7.5%;
+  position: relative;
+  text-align: right;
+}
+
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}
+
+.input-editable {
+  border: 0px solid transparent; /* Tidak ada border pada awalnya */
+  
+}
+/* button edit profile */
+.input-editable.highlight {
+  border: 1px solid #000;
+  padding: 3px;
+}
+
+.wishlist span{
+  font-size: 1.5rem;
+}
+

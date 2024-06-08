@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/css/profile.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+      <a href="/home" class="logo">Sneaker<span>Scout</span></a>
+      <nav class="navbar">
+          <a href="/home" class="nav-item">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+          </a>
+          <a href="/sneaker" class="nav-item">
+            <i class="fas fa-shoe-prints"></i>
+              <span>Catalog</span>
+          </a>
+          <a href="/wishlist" class="nav-item">
+              <i class="fas fa-heart"></i>
+              <span>Wishlist</span>
+          </a>
+          <a href="/logout" class="nav-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </a>
+      </nav>
+  </header>
+  <main>
+    <div class="frame1">
+      <div class="profile">
+        <a>Profile</a>
+      </div>
+      <div class="profileuser">
+        <div class="profileuser2">
+          <div class="user">
+            <h1>Personal Information</h1>
+          </div>
+          <form action="/update-profile" method="POST" class="user2">
+            <table>
+              <tr>
+                <th>Name :</th>
+                <td><input type="text" name="name" class="input-editable" value="<%= user ? user.name : '' %>" readonly /></td>
+              </tr>
+              <tr>
+                <th>Email :</th>
+                <td><input type="email" name="email" class="input-editable" value="<%= user ? user.email : '' %>" readonly /></td>
+              </tr>
+              <tr>
+                <th>Username :</th>
+                <td><input type="text" name="username" class="input-editable" value="<%= user ? user.username : '' %>" readonly /></td>
+              </tr>
+          
+              
+            </table>
+            <button class="button1" type="button" id="toggleButton">Edit Profile</button>
+          </form>
+        </div>
+      </div>
+      <div class="wishlist">
+        <hr>
+        <a href="/wishlist" class="nav-item">
+          <h1>
+              <i class="fas fa-heart"></i> My Wishlist 
+              <span id="wishlist-count"><%= wishlistCount %></span>
+          </h1>
+      </a>
+      
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+          <div class="row">
+              <div class="footer-col">
+                  <h4 class = "sneaker">Sneaker</h4>
+                  <h4 class = "scout">Scout</h4>
+                  <div class="social-links">
+                      <a href="#"><i class="fab fa-facebook-f"></i></a>
+                      <a href="#"><i class="fab fa-twitter"></i></a>
+                      <a href="#"><i class="fab fa-instagram"></i></a>
+
+                  </div>
+              </div>
+              <div class="footer-col">
+                  <h4>get help</h4>
+                  <ul>
+                      <li><a href="#">sneakerscout@gmail.com</a></li>
+                      <li><a href="#">+6281322510027</a></li>
+                      <li><a href="#">returns</a></li>
+  
+                  </ul>
+              </div>
+         
+              <div class="footer-col">
+                  <h3 class="text">“Step into the scene. Whether you're cruising the streets or 
+                      lighting up your collection, our sneakers are here to make every 
+                      step iconic. Keep connected, stay stylish, and let your shoes do the talking.”</h3>
+                
+              </div>
+          </div>
+      </div>
+      <hr style="width: 85%; margin: 20px auto; border: 1px solid #ccc;">
+      <h5 class="Inc">2024 Sneaker Scout Inc. All rights reserved</h5>
+ </footer>
+  </main>
+  <!-- button edit -->
+  <script>
+    document.getElementById('toggleButton').addEventListener('click', function() {
+      var inputs = document.querySelectorAll('.user2 input');
+      var isReadOnly = inputs[0].hasAttribute('readonly');
+      const borderline = document.querySelectorAll('.input-editable')
+  
+      // Toggle the readonly state of all inputs
+      inputs.forEach(input => {
+        if (isReadOnly) {
+          input.removeAttribute('readonly')
+          input.classList.toggle('highlight');;
+        } else {
+          input.setAttribute('readonly', '');
+          input.classList.toggle('highlight');
+        }
+      });
+  
+      // Change the button's text and functionality
+      if (isReadOnly) {
+        this.textContent = 'Submit';
+        // Add an event listener to submit the form when the button is next clicked
+        this.addEventListener('click', function submitForm() {
+          document.querySelector('.user2').submit(); // Submit the form
+          this.removeEventListener('click', submitForm); // Remove the submit event to prevent multiple submissions
+        });
+      } else {
+        this.textContent = 'Edit Profile';
+      }
+    });
+
+    
+  </script>
+
+<script>
+  window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const error = urlParams.get('error');
+
+    if (message) {
+      alert(message);
+    }
+    if (error) {
+      alert(error);
+    }
+  };
+</script>
+
+  
+</body>
+</html>

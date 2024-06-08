@@ -1,0 +1,650 @@
+@font-face {
+    font-family: 'iran_sans_bold';
+    src: url('../Fonts/iran_sans_bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'iran_sans_light';
+    src: url('../Fonts/iran_sans_light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'iran_sans_medi';
+    src: url('../Fonts/iran_sans_medi.woff') format('woff');
+}
+*{
+    font-family:  'Roboto Condensed';
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all .2s linear;
+}
+html{
+    font-size: 60%;
+    scroll-padding-top: 6rem;
+    scroll-behavior: smooth;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    gap: 20px;
+    width: 100%;
+    z-index: 100;
+    background: #ffffff;
+    padding: 2rem 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+}
+
+header .search-box{
+    width: max-content;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #bbbbbb;
+    width: 700px;
+}
+
+header .search-box form{
+    display: flex;
+}
+
+.search-box input{
+    border-radius: 5px;
+    font-size: 15px;
+    margin-left: 5px;
+    font-family: "roboto slab";
+    background: transparent;
+    border: none;
+    color: #000000;
+    width: 630px;
+}
+
+.search-box button{
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: "roboto slab";
+    background: transparent;
+    border: none;
+    color: #bbbbbb;
+    font-size: 15px;
+    margin-left:10px ;
+}
+
+header .logo{
+    font-size: 30px;
+    color: #000;
+    font-weight: 500;
+    text-align: center; /* Center the logo text within its flex item */
+    font-family: "Most Wazted";
+    color: #EB4511;
+    max-width: 100px;
+}
+
+header .navbar {
+    display: flex;
+    justify-content: space-around; /* Menyebar item navbar secara lebih merata */
+    align-items: center;
+    gap:10px;
+}
+header .navbar a{
+    font-size: 1.5rem;
+    display: flex;
+    color: #000;
+    margin: 0 0.5rem;
+    padding: 4px 0px;
+    justify-content: space-between;
+    font-family: "roboto slab";
+    color: #afafaf;
+}
+
+header .navbar span{
+    font-family: "roboto slab";
+}
+
+.logo {
+
+    line-height: 1; /* Kurangi line-height untuk mendekatkan teks */
+}
+
+.logo span {
+    display: block;
+    margin-top: -15px; /* Jarak negatif untuk mendekatkan kedua baris */
+    font-size: 30px; /* Ukuran font untuk baris kedua */
+    color: #EB4511; /* Sesuaikan warna */
+    font-family: "most wazted";
+}
+
+
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adjust spacing between icon and text */
+    color: #909090; /* Customize color */
+    text-decoration: none;
+}
+
+header .navbar a:hover{
+    color: orangered;
+}
+
+header .navbar .button:hover{
+    color: rgb(0, 0, 0);
+}
+
+
+#menu-bar{
+    font-size: 2rem;
+    padding: .5rem 1rem;
+    border: .1rem solid #000;
+    color: #000;
+    border-radius: .3rem;
+    cursor: pointer;
+    display: none;
+    margin-left: auto; 
+}
+
+section{
+    padding: 2rem 5%;
+    position: relative;
+    margin-top:80px;
+}
+
+.frame1{
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
+.frame1 .wishlist {
+    position: relative;
+    transform: translateY(50%);
+    justify-content: center;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+  .frame1 .wishlist a{
+    font-size: 3rem;
+    font-family: "roboto slab";
+    margin-top: 70px;
+    font-weight: bold;
+  }
+
+  .heading{
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.heading span{
+    color: rgb(252, 118, 69);
+}
+
+.product .box-container{
+    display: flex;
+    flex-wrap: wrap; /* Bungkus ke baris berikutnya */
+    gap: 0px; /* Sesuaikan jarak antar kotak */
+    width: 100%;
+    background-color: #ffffff;
+    gap: 15px; /* Menambahkan gap antar box */
+    justify-content: flex-start; /* Item mulai dari kiri dan tetap di kiri */
+    text-align: center;
+    margin-bottom: 20%;
+}
+
+.product .box-container .frameimg {
+    width: 400px !important;; /* Lebar tetap */
+    height: 320px; /* Tinggi tetap */
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 .5rem 3rem rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin: 10px;
+    position: relative; /* untuk positioning absolut dari elemen di dalam seperti .circle */
+}
+
+
+ .product .box-container .frameimg img{
+    width: 60%;
+    object-fit: cover;
+    z-index: 1;
+ }
+ 
+ .frameimg a[target="_blank"] {
+    display: block;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 16px; /* Adjust the font size as needed */
+    text-align: center;
+    font-family: "Roboto Slab";
+    padding:20px;
+}
+
+.product .box-container .frameimg .circle{ 
+    background-color: #afafaf;
+    width: 40px; /* Sesuaikan ukuran lingkaran */
+    height: 40px;
+    display: flex; /* Gunakan Flexbox untuk membuat ikon di tengah */
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-left: 87%;
+    margin-top: 10px;
+ }
+
+ .circle .fa-heart {
+    font-size: 2rem;
+    color: #e40000;
+}
+
+
+ .product .box-container .frameimg  hr {
+    position: relative;
+    width: auto;
+    border: 0.5px solid rgb(224, 224, 224);
+    z-index: 1; /* Pastikan berada di bawah lingkaran */
+}
+
+.product .box-container .frameimg:hover {
+    outline: 1px solid black;
+}
+
+.product .box-container .frameimg:hover img{
+    transform: scale(1.2);
+}
+
+
+
+.product .box-container .box .content h3{
+    color: #000;
+    font-size: 2rem;
+    margin-top: 20;
+    margin-bottom: 20;
+    flex-wrap: wrap;
+}
+
+.products-preview {
+    position: fixed;
+    top:0%; left:0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    height: auto; /* atau nilai spesifik lainnya */
+    transition: all 0.3s ease;
+    z-index: 2;
+    display: none;
+ }
+
+ .products-preview .preview{
+    padding:2rem;
+    display: flex;
+    background: #fff;
+    position: relative;
+    height: 500px;
+    width: 100rem;
+    z-index: 10;
+    left: 0%;
+    margin-top:5% ;
+    border-radius: 20px;
+    
+
+ }
+
+ .products-preview .preview.active{
+    display: inline-block;
+ }
+ 
+ .products-preview .previewimg{
+    background-color: #949494;
+    height: 100%;
+    width: 50%;
+    display: flex; /* Menetapkan display flex pada container */
+    align-items: center; /* Pusatkan item di sumbu vertikal */
+    justify-content: center; /* Pusatkan item di sumbu horizontal */
+    border-radius: 10px;
+ }
+
+ .products-preview .previewimg img{
+   height: 65%;
+    width: 80%;
+ }
+
+ .description{
+    position: relative;
+    background-color: #ffffff;
+    width: 45%;
+    height: 100%;
+    right: -50%;
+    top: -102%;
+    padding: 10px;
+    display: flex; /* Menggunakan flexbox */
+    align-items: center; /* Menengahkan konten secara vertikal */
+ }
+
+ .description hr{
+    margin-bottom: 1rem;
+ }
+
+ .framedes{
+    width: 100%;
+ }
+
+ .size{
+    font-size: 1.5rem;
+ }
+
+ .size span{
+    margin-top: 2px;
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #ffffff;
+    width: 4rem;
+    outline: 1px solid black;
+    text-align: center;
+    border-radius: 3px;
+ }
+
+ .color{
+    margin-top:1rem;
+    font-size: 1.5rem;
+ }
+
+ .color div{
+    margin-top: 2px;
+    margin-right: 10px;
+    background-color: #ff0000;
+    height: 3rem;
+    width: 3rem;
+    outline: 1px solid black;
+    text-align: center;
+    border-radius: 3rem;
+ }
+
+ .preview-img, .description {
+    flex: 1; /* This allows both the image and description to take equal space */
+    margin: 10px;
+}
+
+ .products-preview .preview .fa-times{
+    position: absolute;
+    top:1rem; right:1.5rem;
+    cursor: pointer;
+    color:#444;
+    font-size: 4rem;
+ }
+ 
+ 
+ .products-preview .preview .fa-times:hover{
+    transform: rotate(90deg);
+ }
+
+
+ .products-preview .preview .buttons{
+    display: flex;
+    gap:1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    text-align: center;
+
+ }
+ 
+ .products-preview .preview .buttons a.fa-heart {
+    display: inline-flex; /* Makes the anchor behave like a flex container */
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+}
+
+
+ .products-preview .preview .buttons a{
+    flex:1 1 16rem;
+    padding:0.5rem;
+    font-size: 1.5rem;
+    color:#444;
+    border:.1rem solid #444;
+ }
+ 
+ .products-preview .preview .buttons a.fa-heart{
+    background: #ffffff;
+    color:#000000;
+ }
+ 
+ .products-preview .preview .buttons a.fa-heart:hover{
+    background: #000000;
+    color: #EB4511;
+ }
+ 
+ .products-preview .preview .buttons a.buy:hover{
+    background: #444;
+    color:#fff;
+ }
+
+ .products-preview .preview h3{
+    color:#000000;
+    font-family: "Roboto Slab";
+    font-size: 2.5rem;
+ }
+
+ .products-preview .preview p{
+    line-height: 1.5;
+    font-size: 2.2rem;
+    color:#000000;
+    right: 1rem;
+    font-family: "Roboto Slab";
+ }
+
+
+ @media (max-width: 60px) {
+    .preview {
+        width: 80%; /* Lebar box berkurang */
+        height: auto; /* Menyesuaikan tinggi secara otomatis */
+    }
+}
+
+/* Anda dapat menambahkan lebih banyak breakpoints jika diperlukan */
+@media (max-width: 40px) {
+    .preview {
+        width: 60%; /* Lebih kecil lagi untuk layar yang sangat kecil */
+    }
+}
+
+@media (max-width:991px){
+
+    html{
+       font-size: 55%;
+    }
+ 
+ }
+ 
+ @media (max-width:768px){
+ 
+    .products-preview .preview img{
+       height: 25rem;
+    }
+ 
+ }
+ 
+ @media (max-width:450px){
+ 
+    html{
+       font-size: 50%;
+    }
+ 
+ }
+
+.box-container .empty{
+    font-size: 2rem;
+    font-family: "roboto slab";
+    margin-left: 40%;
+    margin-right: 40%;
+    background-color: #dadada;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 15rem;
+ }
+
+ body{
+	line-height: 1.5;
+	font-family: 'Poppins', sans-serif;
+}
+*{
+	margin:0;
+	padding:0;
+	box-sizing: border-box;
+}
+
+.container{
+    padding: 10px 0;
+}
+
+.row{
+	display: flex;;
+	flex-wrap: wrap;
+    max-width: 100%;
+    margin-bottom: -75px;
+}
+
+ul{
+	list-style: none;
+}
+
+.blog{
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+.footer{
+	background-color: #3E3E3E;
+    padding: 15px 0;
+    position: relative;
+}
+.footer-col{
+   width: 33%;
+   margin-top: 20px;
+   padding: 0 110px;
+
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 30px;
+	font-weight: 500;
+	position: relative;
+    
+}
+
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: 300;
+	color: #bbbbbb;
+	display: block;
+	transition: all 0.3s ease;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+
+.footer-col .social-links{
+    transform: translateY(-130px);
+    margin-left: 15px;
+    margin-top: 20px; /* Atur jarak vertikal logo sosial media */
+    margin-bottom: 20px;
+}
+
+
+.footer .social-links a {
+    display: inline-block;
+    margin: 0 10px; /* Jarak antar ikon */
+    font-size: 30px; /* Ukuran ikon */
+    color: #fff; /* Warna ikon */
+    transition: color 0.3s ease;
+    
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+.footer-col .sneaker{
+    position: relative;
+    color: #EB4511;
+    font-family: "most wazted";
+    font-size: 5rem;
+    bottom: 20px;
+}
+
+.footer-col .scout{
+    position: relative;
+    color: #EB4511;
+    font-family: "most wazted";
+    font-size: 5rem;
+    left: 10%;
+    bottom: 38%;
+}
+
+.footer-col h3{
+    text-align: right;
+    font-size: 14px;
+	color: #ffffff;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+    
+}
+
+.footer-col .get{
+    margin-bottom: 1rem;
+}
+
+h5{
+    margin-left: 75%;
+    color: #C9C9C9;
+    font-family: "roboto slab";
+    font-size: 1.1rem;
+}
+
+.inc{
+  color: #C9C9C9;
+  font-family: "roboto slab";
+  font-size: 1.1rem;
+  margin-left: 7.5%;
+  margin-right: 7.5%;
+  position: relative;
+  text-align: right;
+}
+
+/*responsive*/
+@media(max-width: 767px){
+  .footer-col{
+    width: 50%;
+    margin-bottom: 30px;
+}
+}
+@media(max-width: 574px){
+  .footer-col{
+    width: 100%;
+}
+}

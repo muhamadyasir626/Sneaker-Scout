@@ -1,1 +1,1 @@
-# Sneaker-Scout
+# deploy-sneaker
