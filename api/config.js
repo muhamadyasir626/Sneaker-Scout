@@ -109,18 +109,88 @@ app.post('/update-profile', async (req, res) => {
       // Update session details to reflect changes
       req.session.user = { ...req.session.user, username, name, email };
 
-      // Redirect with success message
-      res.redirect(`/profile?message=Profile updated successfully!`);
+      // Respond with success message using SweetAlert2
+      res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Profile Update</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Success",
+              text: "Profile updated successfully!",
+              icon: "success",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/profile";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     } else {
-      // If no user is found or updated, redirect with an error
-      res.redirect('/profile?error=User not found');
+      // If no user is found or updated, respond with an error message using SweetAlert2
+      res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Profile Update Error</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Error",
+              text: "User not found.",
+              icon: "error",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/profile";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     }
   } catch (err) {
     console.error('Error updating profile:', err);
-    // Handle error and redirect with error message
-    res.status(500).redirect('/profile?error=An error occurred');
+    // Handle error and respond with error message using SweetAlert2
+    res.status(500).send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile Update Error</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+      </head>
+      <body>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          Swal.fire({
+            title: "Error",
+            text: "An error occurred while updating your profile. Please try again.",
+            icon: "error",
+            confirmButtonText: "OK"
+          }).then(() => {
+            window.location.href = "/profile";
+          });
+        </script>
+      </body>
+      </html>
+    `);
   }
 });
+
 
 app.post("/login", async (req, res) => {
   try {
@@ -181,15 +251,13 @@ app.post('/add-to-wishlist', async (req, res) => {
     return res.status(401).json({ success: false, message: 'Please login first.' });
   }
 
-  // Menerima atribut sneaker dari body request
   const { shoeName, brand, releaseDate, description, colorway, make, retailPrice, styleID, thumbnail, resellLinks, lowestResellPrice } = req.body;
 
   try {
-    const username = req.session.user.username;  // Menggunakan username dari sesi
+    const username = req.session.user.username;
 
-    // Membuat objek wishlistItem baru
     const wishlistItem = new wishlist({
-      username: username,  // Pastikan ini sesuai dengan kebutuhan skema
+      username: username,
       shoeName: shoeName,
       brand: brand,
       releaseDate: new Date(releaseDate),
@@ -199,29 +267,27 @@ app.post('/add-to-wishlist', async (req, res) => {
       retailPrice: retailPrice,
       styleID: styleID,
       thumbnail: thumbnail,
-      resellLinks: { // Memperbaiki struktur objek ini
+      resellLinks: {
         goat: resellLinks.goat,
         flightClub: resellLinks.flightClub,
         stockX: resellLinks.stockX,
       },
-      lowestResellPrice: { // Memperbaiki struktur objek ini
+      lowestResellPrice: {
         stockX: lowestResellPrice.stockX,
         flightClub: lowestResellPrice.flightClub,
         goat: lowestResellPrice.goat,
       }
     });
 
-    // Menyimpan item ke dalam database wishlist
-    const insertWishlist = await wishlist.insertMany([wishlistItem]);
-
-    res.json({ success: true, message: 'Sneaker added to wishlist.' });
+    await wishlistItem.save();
+    res.json({ success: true, message: 'Sneaker adde' });
   } catch (error) {
     console.error('Error adding sneaker to wishlist:', error);
     res.status(500).json({ success: false, message: `An error occurred: ${error.message}` });
   }
 });
 
-//remove wishlist old
+// Endpoint untuk menghapus dari wishlist
 app.post('/remove-from-wishlist', async (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ success: false, message: 'User not logged in.' });
@@ -323,7 +389,7 @@ app.post('/remove-from-page-wishlist', async (req, res) => {
 // feature search
 app.get('/api/search', (req, res) => {
   const query = req.query.q || 'Nike';  // Default search query
-  const limit = parseInt(req.query.limit, 10) || 9;  // Default limit
+  const limit = parseInt(req.query.limit, 10) || 100;  // Default limit
   const offset = parseInt(req.query.offset, 10) || 0;  // Default offset
 
   console.log(`Searching for sneakers with query: ${query}, limit: ${limit}, and offset: ${offset}`);
@@ -372,7 +438,7 @@ app.get('/api/search', (req, res) => {
 
 app.get('/api/filter', (req, res) => {
   const query = req.query.q ;  // Default search query
-  const limit = parseInt(req.query.limit, 10) || 9;  // Default limit
+  const limit = parseInt(req.query.limit, 10) || 100;  // Default limit
   const offset = parseInt(req.query.offset, 10) || 0;  // Default offset
 
   console.log(`Searching for sneakers with query: ${query}, limit: ${limit}, and offset: ${offset}`);
@@ -424,24 +490,93 @@ app.post('/signup', async (req, res) => {
   const { username, name, email, password1, password2 } = req.body;
 
   try {
-    // Check if email and username  already exists
+    // Check if email and username already exists
     const checkEmail = await users.findOne({ email: email });
     const checkUsername = await users.findOne({ username: username });
 
     if (checkEmail) {
       console.log("Email already exists.");
-      return res.status(400).send('<script>alert("Email already exists."); window.location.href = "/signup";</script>');
+      return res.status(400).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Email Exists</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Error",
+              text: "Email already exists.",
+              icon: "error",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/signup";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     }
 
     if (checkUsername) {
       console.log("Username already exists.");
-      return res.status(400).send('<script>alert("Username already exists."); window.location.href = "/signup";</script>');
+      return res.status(400).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Username Exists</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Error",
+              text: "Username already exists.",
+              icon: "error",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/signup";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     }
 
     // Check if password1 and password2 match
     if (password1 !== password2) {
       console.log("Passwords do not match.");
-      return res.status(400).send('<script>alert("Passwords do not match."); window.location.href = "/signup";</script>');
+      return res.status(400).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Password Mismatch</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Error",
+              text: "Passwords do not match.",
+              icon: "error",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/signup";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     }
 
     // Hash the password
@@ -457,17 +592,62 @@ app.post('/signup', async (req, res) => {
     };
 
     // Save user data to the database
-    // const insertedUserData = await users_register.insertMany([userDataToInsert]);
     const insertedUserData = await users.insertMany([userDataToInsert]);
     console.log(insertedUserData)
 
     // Respond with a success message
     console.log("Registration successful. Please log in.");
-    res.status(200).send('<script>alert("Registration successful. Please log in."); window.location.href = "/login";</script>');
+    res.status(200).send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Successful</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+      </head>
+      <body>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          Swal.fire({
+            title: "Success",
+            text: "Registration successful. Please log in.",
+            icon: "success",
+            confirmButtonText: "OK"
+          }).then(() => {
+            window.location.href = "/login";
+          });
+        </script>
+      </body>
+      </html>
+    `);
   } catch (error) {
     // Handle any errors
     console.error('Error during registration:', error);
-    res.status(500).send('<script>alert("An error occurred during registration."); window.location.href = "/signup";</script>');
+    res.status(500).send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registration Error</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+      </head>
+      <body>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          Swal.fire({
+            title: "Error",
+            text: "An error occurred during registration. Please try again.",
+            icon: "error",
+            confirmButtonText: "OK"
+          }).then(() => {
+            window.location.href = "/signup";
+          });
+        </script>
+      </body>
+      </html>
+    `);
   }
 });
 
@@ -477,7 +657,30 @@ app.post("/login", async (req, res) => {
     const user = await users.findOne({ email: req.body.email });
 
     if (!user) {
-      return res.send('<script>alert("Email not found");window.location.href="/login";</script>');
+      return res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Email Not Found</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Error",
+              text: "Email not found.",
+              icon: "error",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/login";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     }
 
     const passwordValid = await bcrypt.compare(req.body.password, user.password);
@@ -488,17 +691,86 @@ app.post("/login", async (req, res) => {
         name: user.name,
         email: user.email
       };
-     
 
-      return res.status(200).send('<script>alert("Registration successful. Please log in."); window.location.href = "/login";</script>');
+      return res.status(200).send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Login Successful</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Success",
+              text: "Login successful.",
+              icon: "success",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/home"; // Redirect to home page or wherever you want after login
+            });
+          </script>
+        </body>
+        </html>
+      `);
     } else {
-      return res.send('<script>alert("Wrong Password!");window.location.href="/login";</script>');
+      return res.send(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Wrong Password</title>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        </head>
+        <body>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+          <script>
+            Swal.fire({
+              title: "Error",
+              text: "Wrong Password!",
+              icon: "error",
+              confirmButtonText: "OK"
+            }).then(() => {
+              window.location.href = "/login";
+            });
+          </script>
+        </body>
+        </html>
+      `);
     }
   } catch (error) {
     console.error('Error during login:', error);
-    return res.send('<script>alert("An error occurred during login.");window.location.href="/login";</script>');
+    return res.send(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Error</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+      </head>
+      <body>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          Swal.fire({
+            title: "Error",
+            text: "An error occurred during login.",
+            icon: "error",
+            confirmButtonText: "OK"
+          }).then(() => {
+            window.location.href = "/login";
+          });
+        </script>
+      </body>
+      </html>
+    `);
   }
 });
+
 
 // Logout
 app.get('/logout', (req, res) => {
@@ -507,20 +779,37 @@ app.get('/logout', (req, res) => {
       console.error('Error logging out:', err);
     }
     res.send(`
-            <script>
-                sessionStorage.clear(); // Clears all sessionStorage data
-                localStorage.clear(); // Optionally clear localStorage if used
-                alert("You have been logged out.");
-                window.location.href = "/login";
-            </script>
-        `);
-    // res.send('<script>alert("You have been logged out."); window.location.href = "/login";</script>');
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Logout</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+      </head>
+      <body>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          sessionStorage.clear(); // Clears all sessionStorage data
+          localStorage.clear(); // Optionally clear localStorage if used
+          Swal.fire({
+            title: "Logged Out",
+            text: "You have been logged out.",
+            icon: "success",
+            confirmButtonText: "OK"
+          }).then(() => {
+            window.location.href = "/login";
+          });
+        </script>
+      </body>
+      </html>
+    `);
   });
 });
 
 //display most popular
 app.get('/api/most-popular', (req, res) => {
-  const limit = parseInt(req.query.limit) || 9;
+  const limit = parseInt(req.query.limit) || 12;
   const offset = parseInt(req.query.offset) || 0;
 
   console.log(`Fetching most popular sneakers with limit: ${limit}, offset: ${offset}`);
@@ -619,7 +908,7 @@ app.listen(port, () => {
 // Endpoint to get filtered sneaker data by brand
 app.get('/api/search', (req, res) => {
     const query = req.query.q || 'Nike'; // Default search query if none provided
-    const limit = parseInt(req.query.limit, 10) || 9; // Default items per page
+    const limit = parseInt(req.query.limit, 100) || 100; // Default items per page
     const offset = parseInt(req.query.offset, 10) || 0; // Pagination offset
 
     console.log(`Searching for sneakers with query: ${query}, limit: ${limit}, and offset: ${offset}`);
