@@ -61,6 +61,7 @@ header .search-box form{
     margin-left: 5px;
     font-family: "roboto slab";
     background: transparent;
+    font-weight: lighter;
     border: none;
     color: #000000;
     width: 630px;
@@ -70,6 +71,7 @@ header .search-box form{
     border-radius: 5px;
     font-size: 15px;
     font-family: "roboto slab";
+    font-weight: lighter;
     background: transparent;
     border: none;
     color: #bbbbbb;
@@ -101,11 +103,13 @@ header .navbar a{
     padding: 4px 0px;
     justify-content: space-between;
     font-family: "roboto slab";
+    font-weight: lighter;
     color: #afafaf;
 }
 
 header .navbar span{
     font-family: "roboto slab";
+    font-weight: lighter;
 }
 
 .logo {
@@ -175,6 +179,7 @@ section{
   .frame1 .wishlist a{
     font-size: 3rem;
     font-family: "roboto slab";
+    font-weight: lighter;
     margin-top: 70px;
     font-weight: bold;
   }
@@ -222,7 +227,7 @@ section{
     z-index: 1;
  }
  
- .frameimg a[target="_blank"] {
+ .frameimg span[target="_blank"] {
     display: block;
     color: #333;
     font-weight: bold;
@@ -230,6 +235,7 @@ section{
     font-size: 16px; /* Adjust the font size as needed */
     text-align: center;
     font-family: "Roboto Slab";
+    font-weight: lighter;
     padding:20px;
 }
 
@@ -436,6 +442,7 @@ section{
  .products-preview .preview h3{
     color:#000000;
     font-family: "Roboto Slab";
+    font-weight: lighter;
     font-size: 2.5rem;
  }
 
@@ -445,6 +452,7 @@ section{
     color:#000000;
     right: 1rem;
     font-family: "Roboto Slab";
+    font-weight: lighter;
  }
 
 
@@ -489,6 +497,7 @@ section{
 .box-container .empty{
     font-size: 2rem;
     font-family: "roboto slab";
+    font-weight: lighter;
     margin-left: 40%;
     margin-right: 40%;
     background-color: #dadada;
@@ -530,7 +539,7 @@ ul{
 .footer{
 	background-color: #3E3E3E;
     padding: 15px 0;
-    position: relative;
+    
 }
 .footer-col{
    width: 33%;
@@ -600,8 +609,8 @@ ul{
     color: #EB4511;
     font-family: "most wazted";
     font-size: 5rem;
-    left: 10%;
-    bottom: 38%;
+    margin-left: 30px;
+    bottom: 36%;
 }
 
 .footer-col h3{
@@ -615,20 +624,18 @@ ul{
     
 }
 
-.footer-col .get{
-    margin-bottom: 1rem;
-}
-
 h5{
     margin-left: 75%;
     color: #C9C9C9;
     font-family: "roboto slab";
+    font-weight: lighter;
     font-size: 1.1rem;
 }
 
 .inc{
   color: #C9C9C9;
   font-family: "roboto slab";
+  font-weight: lighter;
   font-size: 1.1rem;
   margin-left: 7.5%;
   margin-right: 7.5%;
@@ -636,15 +643,50 @@ h5{
   text-align: right;
 }
 
-/*responsive*/
-@media(max-width: 767px){
-  .footer-col{
-    width: 50%;
-    margin-bottom: 30px;
+
+
+@media (max-width: 1300px) {
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+        height: 1%;
+    }
+    .footer-col .scout {
+    bottom: 95px;
+    right: 15px;
+    }
+    .footer-col .social-links {
+    transform: translateY(-120px);
+    }
+    .footer-col:first-child {
+        height: 120px; /* Sesuaikan dengan nilai yang diinginkan */
+    }
+    .footer-col:nth-child(2) h4 {
+        margin-bottom: 4%;
+    }
+  
+    .footer-col .text{
+      text-align: center;
+    }
+    .inc{
+      text-align: center;
+    }
+    
+  }
+.frameimg .circle .fa-heart.active {
+    color: red; /* Warna saat aktif */
+  }
+
+  .frameimg .fa-heart.active {
+    color: red; /* Changes the color of the heart icon to red when it has the 'active' class */
 }
-}
-@media(max-width: 574px){
-  .footer-col{
-    width: 100%;
-}
-}
+
+.circle .fa-heart.active {
+    color: red; /* Warna saat aktif */
+  }
+  .fa-heart.active {
+    color: red; /* Changes the color of the heart icon to red when it has the 'active' class */
+} 

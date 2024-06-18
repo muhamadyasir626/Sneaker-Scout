@@ -60,6 +60,7 @@ header .search-box form{
     font-size: 15px;
     margin-left: 5px;
     font-family: "roboto slab";
+    font-weight: lighter;
     background: transparent;
     border: none;
     color: #000000;
@@ -70,6 +71,7 @@ header .search-box form{
     border-radius: 5px;
     font-size: 15px;
     font-family: "roboto slab";
+    font-weight: lighter;
     background: transparent;
     border: none;
     color: #bbbbbb;
@@ -101,11 +103,13 @@ header .navbar a{
     padding: 4px 0px;
     justify-content: space-between;
     font-family: "roboto slab";
+    font-weight: lighter;
     color: #afafaf;
 }
 
 header .navbar span{
     font-family: "roboto slab";
+    font-weight: lighter;
 }
 
 .logo {
@@ -292,6 +296,7 @@ section{
 
 .frame1 .welcome{
     font-family: "roboto Slab";
+    font-weight: lighter;
     font-size: 1.5rem;
     width: 90%;
 }
@@ -320,8 +325,8 @@ section{
 
 .product .box-container .frameimg{
     flex: 1 1 calc(30% - 20px);
-    min-width: 200px; /* Ukuran minimum */
-    width: 30%;
+    min-width: 250px; /* Ukuran minimum */
+    min-height: 300px; /* Tinggi minimum */
     border-radius: 10px;
     box-sizing: border-box;
     background-color: #ffffff;
@@ -345,6 +350,7 @@ section{
     font-size: 16px; /* Adjust the font size as needed */
     text-align: center;
     font-family: "Roboto Slab";
+    font-weight: lighter;
     padding:20px;
 }
 
@@ -366,6 +372,10 @@ section{
 }
 
 .circle .fa-heart.active {
+    color: red; /* Warna saat aktif */
+  }
+  
+  .fa-heart.active {
     color: red; /* Warna saat aktif */
   }
 
@@ -414,6 +424,24 @@ section{
     }
  
  }
+
+ @media (max-width:991px){
+
+    .content{
+        position: relative;
+        top: 20%;
+    }
+
+    .home .slide-container .slide .image .shoe {
+        max-width: none;
+        width: 100%;
+        height: auto;
+        animation: shoe .3s linear;
+        transform: translateX(-70%);
+        transform: translateY(-15%);
+    }
+ 
+ }
  
  @media (max-width:768px){
  
@@ -430,6 +458,8 @@ section{
     }
  
  }
+
+ 
 
 /* end product  */
 
@@ -466,6 +496,7 @@ section{
 .frame2 .contenttext .kata2{
     font-size: 2rem;
     font-family: "roboto slab";
+    font-weight: lighter;
     text-align: center;
 }
 
@@ -480,10 +511,14 @@ section{
 }
 
 .contentimg img{
-    width: 80%;
-    height: auto;
-    left: 10%;
-}
+    width: 500px;
+    height: 400px;
+    object-fit: cover;
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    }
 
 
 .featured .row{
@@ -639,7 +674,7 @@ ul{
 .footer{
 	background-color: #3E3E3E;
     padding: 15px 0;
-    position: relative;
+    
 }
 .footer-col{
    width: 33%;
@@ -709,8 +744,8 @@ ul{
     color: #EB4511;
     font-family: "most wazted";
     font-size: 5rem;
-    left: 10%;
-    bottom: 38%;
+    margin-left: 30px;
+    bottom: 36%;
 }
 
 .footer-col h3{
@@ -724,38 +759,97 @@ ul{
     
 }
 
-.footer-col .get{
-    margin-bottom: 1rem;
-}
-
 h5{
     margin-left: 75%;
     color: #C9C9C9;
     font-family: "roboto slab";
+    font-weight: lighter;
     font-size: 1.1rem;
 }
 
 .inc{
   color: #C9C9C9;
   font-family: "roboto slab";
+  font-weight: lighter;
   font-size: 1.1rem;
   margin-left: 7.5%;
   margin-right: 7.5%;
   position: relative;
   text-align: right;
 }
-
 /*responsive*/
-@media(max-width: 767px){
-  .footer-col{
+@media(max-width: 900px){
+ 
+.frame2 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: auto;
+}
+  .contentimg{
+    width: 340px;
+    margin-top: 70px;
+  }
+  .contentimg img{
+        width: 300px; /* Lebar baru yang lebih kecil */
+        height: 200px; /* Tinggi baru yang lebih kecil */
+        object-fit: cover; /* Pastikan gambar menutupi area */
+    }
+
+    .frame2 .contenttext{
+        margin-top: 4rem;
+    }
+  }
+
+  .frame2 .contenttext {
+    position: relative;
+    background-color: #EDEDED;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 50%;
-    margin-bottom: 30px;
+    gap: 1rem;
+    z-index: 1;
 }
-}
-@media(max-width: 574px){
-  .footer-col{
-    width: 100%;
-}
+
+@media (max-width: 1300px) {
+    .footer-col {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 30px;
+        text-align: center;
+        height: 1%;
+    }
+    .footer-col .scout {
+    bottom: 95px;
+    right: 15px;
+    }
+    .footer-col .social-links {
+    transform: translateY(-120px);
+    }
+    .footer-col:first-child {
+        height: 120px; /* Sesuaikan dengan nilai yang diinginkan */
+    }
+    .footer-col:nth-child(2) h4 {
+        margin-bottom: 4%;
+    }
+  
+    .footer-col .text{
+      text-align: center;
+    }
+    .inc{
+      text-align: center;
+    }
+    
+  }
+
+@media(max-width: 874px){
+
+.home .slide-container .slide .content span {
+    font-size: 5rem;
 }
 
 .frameimg .circle .fa-heart {
@@ -778,3 +872,5 @@ h5{
     color: red; /* Changes the color of the heart icon to red when it has the 'active' class */
 } 
 
+
+}

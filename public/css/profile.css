@@ -29,7 +29,7 @@ html{
 }
 
 th{
-  font-family: "roboto slab";
+  font-family: "roboto slab";  font-weight: lighter;
   font-size: 1.5rem;
 }
 
@@ -67,6 +67,7 @@ input{
   width: 25rem;
   text-transform: none;
   font-family: "roboto slab";
+  font-weight: lighter;
   font-size: 1.5rem;
   border: none;
 }
@@ -102,10 +103,12 @@ header .navbar a{
   justify-content: space-between;
   font-family: "roboto slab";
   color: #afafaf;
+  font-weight: lighter;
 }
 
 header .navbar span{
   font-family: "roboto slab";
+  font-weight: lighter;
 }
 
 .logo {
@@ -219,6 +222,7 @@ header .navbar .button:hover{
 .user h1{
   font-size: 2.5rem;
   font-family: "roboto slab";
+  font-weight: lighter;
 }
 
 
@@ -245,8 +249,8 @@ header .navbar .button:hover{
   border-radius: 5px;
   border:1px solid;
   align-items: center;
-  margin-top: 41%;
-  margin-left: 38%;
+  left:14.5rem;
+  top: 16rem;
   padding: 10px;
   white-space: nowrap; /* Mencegah teks dari wrapping */
 }
@@ -290,12 +294,14 @@ th, td {
   font-size: 1.6rem;
   text-transform: none;
   font-family: "roboto slab";
+  font-weight: lighter;
   width: 40%;
 }
 
 th {
   text-align: left;
   font-family: "Roboto Slab";
+  font-weight: lighter;
 }
 
 
@@ -322,6 +328,7 @@ th {
   position: relative;
   margin-top: 10px;
   font-family: "roboto slab";
+  font-weight: lighter;
   cursor: pointer;
   color: #000;
 }
@@ -447,8 +454,8 @@ ul{
     color: #EB4511;
     font-family: "most wazted";
     font-size: 5rem;
-    left: 10%;
-    bottom: 38%;
+    margin-left: 30px;
+    bottom: 36%;
 }
 
 .footer-col h3{
@@ -466,12 +473,14 @@ h5{
     margin-left: 75%;
     color: #C9C9C9;
     font-family: "roboto slab";
+    font-weight: lighter;
     font-size: 1.1rem;
 }
 
 .inc{
   color: #C9C9C9;
   font-family: "roboto slab";
+  font-weight: lighter;
   font-size: 1.1rem;
   margin-left: 7.5%;
   margin-right: 7.5%;
@@ -505,5 +514,81 @@ h5{
 
 .wishlist span{
   font-size: 1.5rem;
+}
+
+@media (max-width: 1300px) {
+  .footer-col {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 30px;
+      text-align: center;
+      height: 1%;
+  }
+  .footer-col .scout {
+  bottom: 95px;
+  right: 15px;
+  }
+  .footer-col .social-links {
+  transform: translateY(-120px);
+  }
+  .footer-col:first-child {
+      height: 120px; /* Sesuaikan dengan nilai yang diinginkan */
+  }
+  .footer-col:nth-child(2) h4 {
+      margin-bottom: 4%;
+  }
+
+  .footer-col .text{
+    text-align: center;
+  }
+  .inc{
+    text-align: center;
+  }
+  
+}
+
+@media (max-width: 1100px) {
+  header {
+      display: flex;
+  }
+
+  header .search-box {
+      width: 50%;
+      margin: 10px 0;
+  }
+
+  .file2 .header .search-box {
+      width: 50%;
+      margin: 10px 0;
+  }
+
+
+
+  header .navbar a {
+  
+      width: 100%;
+      text-align: center;
+  }
+}
+
+@media (max-width: 600px){
+  header {
+      flex-direction: column;
+  }
+
+  header .search-box{
+      width: 400px;
+  }
+}
+
+@media (max-width: 900px){
+  .file2 header {
+      flex-direction: column;
+  }
+
+  .file2 header .search-box{
+      width: 400px;
+  }
 }
 

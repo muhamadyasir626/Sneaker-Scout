@@ -76,8 +76,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     products.forEach((product) => {
-      const frameImg = createSneakerElement(product);
-      searchResult.appendChild(frameImg);
+      if (priceFilter(product, priceMin, priceMax)) {
+        const frameImg = createSneakerElement(product);
+        searchResult.appendChild(frameImg);
+    }
     });
   };
 
@@ -107,51 +109,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     checkWishlist();
 
-    heartIcon.addEventListener("click", async (event) => {
-      event.stopPropagation(); // Prevent triggering click events on parent elements
-      const userLoggedIn = sessionStorage.getItem('userLoggedIn');
-       console.log(userLoggedIn)
+   heartIcon.addEventListener("click", async (event) => {
+  event.stopPropagation(); // Prevent triggering click events on parent elements
+  const userLoggedIn = sessionStorage.getItem("userLoggedIn"); // Assuming 'userLoggedIn' is the stored login status
 
+  if (!userLoggedIn) {
+    window.location.href = "/login";
+    return; // Stop further execution
+  }
 
-      if (!userLoggedIn) {
-       console.log(userLoggedIn)
-        alert("Please login first");
-        window.location.href = '/login';
-        return; // Hentikan eksekusi lebih lanjut
-      }
-      const isActive = heartIcon.classList.toggle("active");
-      const url = isActive ? "/add-to-wishlist" : "/remove-from-wishlist";
-      const method = "POST";
+  const isActive = heartIcon.classList.toggle("active");
+  const url = isActive ? "/add-to-wishlist" : "/remove-from-wishlist";
+  const method = "POST";
 
-      try {
-        const response = await fetch(url, {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            shoeName: result.shoeName,
-            brand: result.brand,
-            releaseDate: result.releaseDate,
-            description: result.description,
-            colorway: result.colorway,
-            make: result.make,
-            retailPrice: result.retailPrice,
-            styleID: result.styleID,
-            thumbnail: result.thumbnail,
-            description: result.description,
-            resellLinks: result.resellLinks,
-            lowestResellPrice: result.lowestResellPrice,
-          }),
-        });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.message);
-        alert(`Sneaker ${isActive ? 'added to' : 'removed from'} wishlist!`);
-      } catch (error) {
-        console.error(`Error ${isActive ? 'adding to' : 'removing from'} wishlist:`, error);
-        alert(`An error occurred: ${error.message}`);
-      }
+  try {
+    const response = await fetch(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        shoeName: result.shoeName,
+        brand: result.brand,
+        releaseDate: result.releaseDate,
+        description: result.description,
+        colorway: result.colorway,
+        make: result.make,
+        retailPrice: result.retailPrice,
+        styleID: result.styleID,
+        thumbnail: result.thumbnail,
+        description: result.description,
+        resellLinks: result.resellLinks,
+        lowestResellPrice: result.lowestResellPrice,
+      }),
     });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message);
+    // Handle the response as necessary
+  } catch (error) {
+    console.error(`Error ${isActive ? 'adding to' : 'removing from'} wishlist:`, error);
+    // Handle the error as necessary
+  }
+});
+
+    
 
     const image = document.createElement("img");
     image.src = result.thumbnail;
@@ -386,76 +387,51 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     checkWishlist();
 
-    heartIcon.addEventListener("click", async (event,req) => {
+   
+    heartIcon.addEventListener("click", async (event) => {
       event.stopPropagation(); // Prevent triggering click events on parent elements
-      const userLoggedIn = sessionStorage.getItem('userLoggedIn');
-      console.log(userLoggedIn)
-
+      const userLoggedIn = sessionStorage.getItem("userLoggedIn"); // Assuming 'userLoggedIn' is the stored login status
+  
       if (!userLoggedIn) {
-       console.log(userLoggedIn)
-
-        alert("Please login first");
-        window.location.href = '/login';
-        return ; // Hentikan eksekusi lebih lanjut
+          window.location.href = "/login";
+          return; // Stop further execution
       }
-      heartIcon.classList.toggle("active");
-      if (heartIcon.classList.contains("active")) {
-        // Add to wishlist
-        try {
-          const response = await fetch("/add-to-wishlist", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              shoeName: sneaker.shoeName,
-              brand: sneaker.brand,
-              releaseDate: sneaker.releaseDate,
-              description: sneaker.description,
-              colorway: sneaker.colorway,
-              make: sneaker.make,
-              retailPrice: sneaker.retailPrice,
-              styleID: sneaker.styleID,
-              thumbnail: sneaker.thumbnail,
-              description: sneaker.description,
-              resellLinks: {
-                goat: sneaker.resellLinks.goat,
-                flightClub: sneaker.resellLinks.flightClub,
-                stockX: sneaker.resellLinks.stockX,
+  
+      heartIcon.classList.toggle("active"); // Toggle active class to change icon color
+  
+      const isActive = heartIcon.classList.contains("active");
+      const url = isActive ? "/add-to-wishlist" : "/remove-from-wishlist";
+      const method = "POST"; // Use POST for both adding and removing
+  
+      try {
+          const response = await fetch(url, {
+              method: method,
+              headers: {
+                  "Content-Type": "application/json",
               },
-              lowestResellPrice: {
-                stockX: sneaker.lowestResellPrice.stockX,
-                flightClub: sneaker.lowestResellPrice.flightClub,
-                goat: sneaker.lowestResellPrice.goat,
-              },
-            }),
+              body: JSON.stringify({
+                  shoeName: sneaker.shoeName,
+                  brand: sneaker.brand,
+                  releaseDate: sneaker.releaseDate,
+                  description: sneaker.description,
+                  colorway: sneaker.colorway,
+                  make: sneaker.make,
+                  retailPrice: sneaker.retailPrice,
+                  styleID: sneaker.styleID,
+                  thumbnail: sneaker.thumbnail,
+                  resellLinks: sneaker.resellLinks,
+                  lowestResellPrice: sneaker.lowestResellPrice,
+              }),
           });
           const data = await response.json();
           if (!response.ok) throw new Error(data.message);
-          alert("Sneaker added to wishlist!");
-        } catch (error) {
-          console.error("Error adding to wishlist:", error);
-          alert(`An error occurred: ${error.message}`);
-        }
-      } else {
-        // Remove from wishlist
-        try {
-          const response = await fetch("/remove-from-wishlist", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ styleID: sneaker.styleID }),
-          });
-          const data = await response.json();
-          if (!response.ok) throw new Error(data.message);
-          alert("Sneaker removed from wishlist!");
-        } catch (error) {
-          console.error("Error removing from wishlist:", error);
-          alert(`An error occurred: ${error.message}`);
-        }
+          // Handle the response as necessary
+      } catch (error) {
+          console.error(`Error ${isActive ? 'adding to' : 'removing from'} wishlist:`, error);
+          // Handle the error as necessary
       }
-    });
+  });
+  
 
     const image = document.createElement("img");
     image.src = sneaker.thumbnail;
@@ -486,7 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error: Missing resell prices or links");
       return; // Stop execution if data is incomplete
     }
-
+  
     const popUp = document.createElement("div");
     popUp.className = "pop-up";
     popUp.innerHTML = `
@@ -511,30 +487,24 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
               <div class="toko">
                 <button class="btn">
-                  <a href="${sneaker.resellLinks?.stockX
-      }" target="_blank" class="btn__visible">
+                  <a href="${sneaker.resellLinks?.stockX}" target="_blank" class="btn__visible">
                     <img src="/img/home-login/logo/stockx.png" alt="StockX Logo" class="log">
                   </a>
-                  <a href="${sneaker.resellLinks?.stockX
-      }" target="_blank" class="btn__invisible">$${sneaker.lowestResellPrice?.stockX || " -"
+                  <a href="${sneaker.resellLinks?.stockX}" target="_blank" class="btn__invisible">$${sneaker.lowestResellPrice?.stockX || " -"
       }</a>
                 </button>
                 <button class="btn">
-                  <a href="${sneaker.resellLinks?.flightClub
-      }" target="_blank" class="btn__visible">
+                  <a href="${sneaker.resellLinks?.flightClub}" target="_blank" class="btn__visible">
                     <img src="/img/home-login/logo/flight.png" alt="Flight Club Logo" class="log">
                   </a>
-                  <a href="${sneaker.resellLinks?.flightClub
-      }" target="_blank" class="btn__invisible">$${sneaker.lowestResellPrice?.flightClub || " -"
+                  <a href="${sneaker.resellLinks?.flightClub}" target="_blank" class="btn__invisible">$${sneaker.lowestResellPrice?.flightClub || " -"
       }</a>
                 </button>
                 <button class="btn">
-                  <a href="${sneaker.resellLinks?.goat
-      }" target="_blank" class="btn__visible">
+                  <a href="${sneaker.resellLinks?.goat}" target="_blank" class="btn__visible">
                     <img src="/img/home-login/logo/GOAT-Logo.png" alt="GOAT Logo" class="log">
                   </a>
-                  <a href="${sneaker.resellLinks?.goat
-      }" target="_blank" class="btn__invisible">$${sneaker.lowestResellPrice?.goat || " -"
+                  <a href="${sneaker.resellLinks?.goat}" target="_blank" class="btn__invisible">$${sneaker.lowestResellPrice?.goat || " -"
       }</a>
                 </button>
                 <button class="hearts">
@@ -547,11 +517,10 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
     </div>
-    
-  `;
-
+    `;
+  
     document.body.appendChild(popUp); // Append pop-up to the body
-
+  
     // Add event listeners
     const closeBtn = popUp.querySelector(".close-button");
     closeBtn.addEventListener("click", () => {
@@ -561,27 +530,25 @@ document.addEventListener("DOMContentLoaded", () => {
         updateHeartIconsOnPage(); // Fungsi baru untuk mengupdate ikon hati pada halaman
       }, 0);
     });
-
+  
     const heartIcon = popUp.querySelector(".fa-heart");
     heartIcon.setAttribute('data-styleID', sneaker.styleID);
     heartIcon.addEventListener("click", async (event) => {
+      event.preventDefault(); // Prevent default link behavior
       event.stopPropagation(); // Prevent triggering click events on parent elements
       const userLoggedIn = sessionStorage.getItem('userLoggedIn');
-       console.log(userLoggedIn)
-
-
+      console.log(userLoggedIn);
+  
       if (!userLoggedIn) {
-       console.log(userLoggedIn)
-        alert("Please login first");
+        console.log(userLoggedIn);
         window.location.href = '/login';
         return; // Hentikan eksekusi lebih lanjut
       }
       heartIcon.classList.toggle("active"); // Toggle active class to change icon color
-      heartIcon.setAttribute('data-styleID', sneaker.styleID);
       const isActive = heartIcon.classList.contains("active");
       const url = isActive ? "/add-to-wishlist" : "/remove-from-wishlist";
       const method = "POST"; // Use POST for both adding and removing
-
+  
       try {
         const response = await fetch(url, {
           method: method,
@@ -604,14 +571,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.message);
-        alert(`Sneaker ${isActive ? 'added to' : 'removed from'} wishlist!`);
+        // Handle the response as necessary
       } catch (error) {
         console.error(`Error ${isActive ? 'adding to' : 'removing from'} wishlist:`, error);
-        alert(`An error occurred: ${error.message}`);
+        // Handle the error as necessary
       }
     });
+  
     checkWishlist();
-
+  
     async function checkWishlist() {
       try {
         const response = await fetch(`/api/check-wishlist?styleID=${sneaker.styleID}`);
@@ -625,9 +593,9 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         console.error("Error checking wishlist:", error);
       }
-
     }
-  };
+  }
+  
 
   function updateHeartIconsOnPage() {
     document.querySelectorAll('.fa-heart').forEach(async icon => {
@@ -750,7 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
       filterForm.querySelectorAll('input[type="checkbox"]:checked')
     ).map((checkbox) => checkbox.value);
     currentQuery = encodeURIComponent(selectedBrands.join(" "));
-    // offset = 0; // Reset offset saat filter baru diterapkan
+    offset = 0; // Reset offset saat filter baru diterapkan
     sneakerContainer.innerHTML = ""; // Clear previous results
     fetchFilteredData();
     // showMoreBtn.textContent = "Next"; // Ubah teks tombol saat filter diterapkan
@@ -763,6 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
     priceMax = document.getElementById('hargaMax').value || 10000;
     console.log("max =", priceMax);
     console.log("min =", priceMin);
+    offset = 0;
     if (isPopularActive) {
       isFilterPriceActive = true;
       console.log("Filter harga popular jalan");
@@ -872,7 +841,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Popular", isPopularActive)
       console.log("berjalan popular");
       fetchMostPopularSneakers()
-      // searchSneaker(false); // Do not clear previous results
+      searchSneaker(false); // Do not clear previous results
     }
     window.showMoreHandled = true;  // Prevent multiple triggers
     setTimeout(() => { window.showMoreHandled = false; }, 500);

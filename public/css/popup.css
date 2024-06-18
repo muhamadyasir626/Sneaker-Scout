@@ -237,6 +237,10 @@
   margin-top: 9.7px;
   
 }
+.hearts:hover{
+  background-color: #a4a4a4;
+  color: #fff;
+}
 
 .hearts1 {
   display: inline-flex;
