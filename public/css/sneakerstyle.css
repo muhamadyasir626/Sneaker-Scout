@@ -707,6 +707,7 @@ section{
 body{
 	line-height: 1.5;
 	font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 *{
 	margin:0;
