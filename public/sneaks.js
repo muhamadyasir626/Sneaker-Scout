@@ -114,7 +114,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const userLoggedIn = sessionStorage.getItem("userLoggedIn"); // Assuming 'userLoggedIn' is the stored login status
 
   if (!userLoggedIn) {
-    window.location.href = "/login";
+    Swal.fire({
+      title: "Login Required",
+      text: "Please login first",
+      icon: "warning",
+      confirmButtonText: "Login",
+      showCancelButton: true,
+      cancelButtonText: "Cancel"
+    }).then((sneaker) => {
+      if (sneaker.isConfirmed) {
+        window.location.href = "/login";
+      }
+    });
     return; // Stop further execution
   }
 
@@ -267,12 +278,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const userLoggedIn = sessionStorage.getItem('userLoggedIn');
        console.log(userLoggedIn)
 
-
-      if (!userLoggedIn) {
-       console.log(userLoggedIn)
-        alert("Please login first");
-        window.location.href = '/login';
-        return; // Hentikan eksekusi lebih lanjut
+       if (!userLoggedIn) {
+        Swal.fire({
+          title: "Login Required",
+          text: "Please login first",
+          icon: "warning",
+          confirmButtonText: "Login",
+          showCancelButton: true,
+          cancelButtonText: "Cancel"
+        }).then((sneaker) => {
+          if (sneaker.isConfirmed) {
+            window.location.href = "/login";
+          }
+        });
+        return; // Stop further execution
       }
       heartIcon.classList.toggle("active"); // Toggle active class to change icon color
 
@@ -393,8 +412,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const userLoggedIn = sessionStorage.getItem("userLoggedIn"); // Assuming 'userLoggedIn' is the stored login status
   
       if (!userLoggedIn) {
-          window.location.href = "/login";
-          return; // Stop further execution
+        Swal.fire({
+          title: "Login Required",
+          text: "Please login first",
+          icon: "warning",
+          confirmButtonText: "Login",
+          showCancelButton: true,
+          cancelButtonText: "Cancel"
+        }).then((sneaker) => {
+          if (sneaker.isConfirmed) {
+            window.location.href = "/login";
+          }
+        });
+        return; // Stop further execution
       }
   
       heartIcon.classList.toggle("active"); // Toggle active class to change icon color
@@ -540,9 +570,19 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(userLoggedIn);
   
       if (!userLoggedIn) {
-        console.log(userLoggedIn);
-        window.location.href = '/login';
-        return; // Hentikan eksekusi lebih lanjut
+        Swal.fire({
+          title: "Login Required",
+          text: "Please login first",
+          icon: "warning",
+          confirmButtonText: "Login",
+          showCancelButton: true,
+          cancelButtonText: "Cancel"
+        }).then((sneaker) => {
+          if (sneaker.isConfirmed) {
+            window.location.href = "/login";
+          }
+        });
+        return; // Stop further execution
       }
       heartIcon.classList.toggle("active"); // Toggle active class to change icon color
       const isActive = heartIcon.classList.contains("active");
