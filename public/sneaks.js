@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function searchSneaker(clear = true) {
-    inputData = inputEl.value;
+    inputData = inputEl.value || 'Jordan';
     try {
       isSearchActive = true;
       isPopularActive = false;
@@ -635,7 +635,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fetchMostPopularSneakers() {
     if (isFilterPriceActive) {
-      fetch("/api/most-popular")
+      fetch('api/most-popular')
         .then((response) => response.json())
         .then((sneakers) => {
           const container = document.getElementById("sneaker-mostpopular1");
@@ -675,6 +675,24 @@ document.addEventListener("DOMContentLoaded", () => {
         );
     }
   };
+
+  function showmoreMostPopular() {
+    fetch(`/api/more-most-popular?limit=${limit}&offset=${offset}`)
+        .then((response) => response.json())
+        .then((sneakers) => {
+            if (sneakers.length) {
+                sneakers.forEach(sneaker => {
+                    const sneakerCard = createSneakerCard(sneaker);
+                    sneakerContainer.appendChild(sneakerCard);
+                });
+                console.log("Added more popular sneakers");
+            } else {
+                console.log("No more popular sneakers to load");
+            }
+        })
+        .catch((error) => console.error("Failed to fetch more popular sneakers:", error));
+}
+
 
 
   function priceFilter(sneaker, minPrice, maxPrice) {
@@ -830,7 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return; // Hentikan jika sudah ditangani
     }
     if (isSearchActive) {
-      console.log("searc", isSearchActive)
+      console.log("search", isSearchActive)
       console.log("Bejalan Search");
       searchSneaker(false); // Do not clear previous results
     } else if (isFilterActive) {
@@ -840,8 +858,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (isPopularActive) {
       console.log("Popular", isPopularActive)
       console.log("berjalan popular");
-      fetchMostPopularSneakers()
-      searchSneaker(false); // Do not clear previous results
+      // fetchMostPopularSneakers()
+      showmoreMostPopular();
+      // searchSneaker(false); // Do not clear previous results
+
     }
     window.showMoreHandled = true;  // Prevent multiple triggers
     setTimeout(() => { window.showMoreHandled = false; }, 500);

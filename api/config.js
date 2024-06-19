@@ -389,7 +389,7 @@ app.post('/remove-from-page-wishlist', async (req, res) => {
 // feature search
 app.get('/api/search', (req, res) => {
   const query = req.query.q || 'Nike';  // Default search query
-  const limit = parseInt(req.query.limit, 10) || 100;  // Default limit
+  const limit = parseInt(req.query.limit, 10) || 10;  // Default limit
   const offset = parseInt(req.query.offset, 10) || 0;  // Default offset
 
   console.log(`Searching for sneakers with query: ${query}, limit: ${limit}, and offset: ${offset}`);
@@ -851,6 +851,28 @@ app.get('/api/most-popular', (req, res) => {
     //     }
     //   };
     // });
+    console.log(`Fetching most popular sneakers with limit: ${limit}, offset: ${offset}`);
+
+    res.json(formattedProducts);
+  });
+});
+
+app.get('/api/more-most-popular', (req, res) => {
+  const limit = parseInt(req.query.limit) || 14;
+  const offset = parseInt(req.query.offset) || 0;
+
+  console.log(`Fetching most popular sneakers with limit: ${limit}, offset: ${offset}`);
+
+  // Fetch a large enough number to handle pagination properly
+  sneaks.getMostPopular(200, (err, products) => {
+    if (err) {
+      console.error('Error fetching most popular products:', err);
+      return res.status(500).json({ error: 'Error occurred while fetching most popular products.' });
+    }
+
+    const slicedProducts = products.slice(offset, offset + limit);
+    const formattedProducts = slicedProducts.map((product) => formatProduct(product))
+
     console.log(`Fetching most popular sneakers with limit: ${limit}, offset: ${offset}`);
 
     res.json(formattedProducts);
