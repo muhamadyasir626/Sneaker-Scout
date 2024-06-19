@@ -809,7 +809,7 @@ app.get('/logout', (req, res) => {
 
 //display most popular
 app.get('/api/most-popular', (req, res) => {
-  const limit = parseInt(req.query.limit) || 12;
+  const limit = parseInt(req.query.limit) || 14;
   const offset = parseInt(req.query.offset) || 0;
 
   console.log(`Fetching most popular sneakers with limit: ${limit}, offset: ${offset}`);
