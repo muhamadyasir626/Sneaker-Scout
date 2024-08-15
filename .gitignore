@@ -188,6 +188,9 @@ $RECYCLE.BIN/
 
 /api
 /config
+.gitignore
+.package-lock
+.package
 
 # Windows shortcuts
 *.lnk
